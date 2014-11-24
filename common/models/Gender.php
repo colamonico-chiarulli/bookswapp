@@ -1,0 +1,54 @@
+<?php
+
+namespace common\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "{{%gender}}".
+ *
+ * @property integer $id
+ * @property string $gender_name
+ *
+ * @property UserProfile[] $profiles
+ */
+class Gender extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%gender}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['gender_name'], 'required'],
+            [['gender_name'], 'string', 'max' => 45]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'gender_name' => Yii::t('app', 'Gender'),
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfiles()
+    {
+        return $this->hasMany(UserProfile::className(), ['gender_id' => 'id']);
+    }
+}
