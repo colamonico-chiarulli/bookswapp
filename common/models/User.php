@@ -18,7 +18,7 @@ use yii\helpers\Html;
 use common\models\ValueHelpers;
 
 /**
- * User model
+ * This is the model class for table "{{%user}}".
  *
  * @property integer $id
  * @property string $username
@@ -28,10 +28,20 @@ use common\models\ValueHelpers;
  * @property string $auth_key
  * @property integer $role_id
  * @property integer $status_id
- * @proprty integer $user_type_id
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property integer $user_type_id
+ * @property string $created_at
+ * @property string $updated_at
+ *
+ * @property Bookmark[] $bookmarks
+ * @property Swap[] $swaps
+ * @property UserRole $role
+ * @property UserStatus $status
+ * @property UserType $userType
+ * @property UserHasBswSchool[] $userHasBswSchools
+ * @property School[] $bswSchoolIdSchools
+ * @property UserHasClassroom[] $userHasClassrooms
+ * @property Classroom[] $classrooms
+ * @property UserProfile[] $userProfiles
  */
 class User extends ActiveRecord implements IdentityInterface {
     //Rino: Da RIMUOVERE - dopo aver verificato che non ci sono

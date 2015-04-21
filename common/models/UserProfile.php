@@ -11,17 +11,27 @@ use yii\helpers\ArrayHelper;
 use yii\db\Expression;
 
 /**
- * This is the model class for table "user_profile".
+ * This is the model class for table "{{%user_profile}}".
  *
- * @property string $id
- * @property string $user_id
+ * @property integer $id
+ * @property integer $user_id
  * @property string $first_name
  * @property string $last_name
  * @property string $birthdate
  * @property integer $gender_id
+ * @property string $zip_user
+ * @property string $city_user
+ * @property string $district_user
+ * @property string $address_user
+ * @property string $phone1_user
+ * @property string $phone2_user
+ * @property string $geo_lat_user
+ * @property string $geo_lng_user
+ * @property integer $school_verificated_user
  * @property string $created_at
  * @property string $updated_at
  *
+ * @property User $user
  * @property Gender $gender
  */
 class UserProfile extends \yii\db\ActiveRecord {
@@ -79,14 +89,23 @@ class UserProfile extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id_user_profile' => 'ID',
-            'user_id' => 'User ID',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'birthdate' => 'Birthdate',
-            'gender_id' => 'Gender ID',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'id' => Yii::t('app', 'ID'),
+            'user_id' => Yii::t('app', 'User ID'),
+            'first_name' => Yii::t('app', 'First Name'),
+            'last_name' => Yii::t('app', 'Last Name'),
+            'birthdate' => Yii::t('app', 'Birthdate'),
+            'gender_id' => Yii::t('app', 'Gender ID'),
+            'zip_user' => Yii::t('app', 'Zip User'),
+            'city_user' => Yii::t('app', 'City User'),
+            'district_user' => Yii::t('app', 'District User'),
+            'address_user' => Yii::t('app', 'Address User'),
+            'phone1_user' => Yii::t('app', 'Phone1 User'),
+            'phone2_user' => Yii::t('app', 'Phone2 User'),
+            'geo_lat_user' => Yii::t('app', 'Geo Lat User'),
+            'geo_lng_user' => Yii::t('app', 'Geo Lng User'),
+            'school_verificated_user' => Yii::t('app', 'School Verificated User'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 
