@@ -227,9 +227,9 @@ AppAsset::register($this);
 <?php
 if (Yii::$app->user->isGuest) {
     ?>
-    <li class="footer">
+    <li>
         <?= Html::a('Login', ['/site/login']) ?>
-    </li>
+    <li>
 <?php
 } else {
     ?>
