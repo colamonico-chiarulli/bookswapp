@@ -1,5 +1,6 @@
 <?php
 use yii\bootstrap\Nav;
+use common\components\NavLTE;
 
 ?>
 <aside class="left-side sidebar-offcanvas">
@@ -47,101 +48,101 @@ use yii\bootstrap\Nav;
         );
         ?>
 
+        
+<?=
+        NavLTE::widget(
+            [
+                'encodeLabels' => false,
+                'items' => [
+                    [
+                        'label' => 'Menu Yii2',
+                        'url' => '#',
+                        'ico' => 'angle-down',
+                        'textClass'=> ['text-info']
+                    ],
+                    ['label' => 'Gii', 'url' => ['/gii'], 'ico' => 'file-code-o' ],
+                    ['label' => 'Debug', 'url' => ['/debug'], 'ico' => 'dashboard' ],
+                ],
+            ]
+        );
+        ?>
+        <!-- You can delete next ul.sidebar-menu. It's just demo. -->
+        <?=
+        NavLTE::widget(
+            [
+                'items' => [
+                    [
+                        'label' => 'Menu AdminLTE',
+                        'url' => '#',
+                        'ico' => 'angle-down',
+                        'textClass'=> ['text-info']
+                    ],
+                    ['label' => 'Dashboard', 'url' => $directoryAsset.'/index.html', 'ico' => 'dashboard' ],
+                    ['label' => 'Widgets', 'url' => $directoryAsset.'/pages/widgets.html', 'ico' => 'th', 'badge' => [ 'text' => 'new', 'color' => 'green', 'ico' => 'check' ] ],
+                    [
+                        'label' => 'Charts',
+                        'url' => $directoryAsset.'/#',
+                        'ico' => 'bar-chart-o',
+                        'items' => [
+                            ['label' => 'Morris', 'url' => $directoryAsset.'/pages/charts/morris.html'],
+                            ['label' => 'Flot', 'url' => $directoryAsset.'/pages/charts/flot.html'],
+                            ['label' => 'Inline chart', 'url' => $directoryAsset.'/pages/charts/inline.html', 'ico' => 'circle'],
+                        ],
+                    ],
+                    [
+                        'label' => 'UI Elements',
+                        'url' => $directoryAsset.'/#',
+                        'ico' => 'laptop',
+                        'items' => [
+                            ['label' => 'General', 'url' => $directoryAsset.'/pages/UI/general.html'],
+                            ['label' => 'Icons', 'url' => $directoryAsset.'/pages/UI/icons.html', 'badge' => '11'],
+                            ['label' => 'Buttons', 'url' => $directoryAsset.'/pages/UI/buttons.html'],
+                            ['label' => 'Sliders', 'url' => $directoryAsset.'/pages/UI/sliders.html', 'badge' => [ 'ico' => 'th' ] ],
+                            ['label' => 'Timeline', 'url' => $directoryAsset.'/pages/UI/timeline.html'],
+                        ],
+                    ],
+                    [
+                        'label' => 'Forms',
+                        'url' => $directoryAsset.'/#',
+                        'ico' => 'edit',
+                        'items' => [
+                            ['label' => 'General Elements', 'url' => $directoryAsset.'/pages/forms/general.html'],
+                            ['label' => 'Advanced Elements', 'url' => $directoryAsset.'/pages/forms/advanced.html'],
+                            ['label' => 'Editors', 'url' => $directoryAsset.'/pages/forms/editors.html'],
+                        ],
+                    ],
+                    [
+                        'label' => 'Tables',
+                        'url' => $directoryAsset.'/#',
+                        'ico' => 'table',
+                        'items' => [
+                            ['label' => 'Simple tables', 'url' => $directoryAsset.'/pages/tables/simple.html'],
+                            ['label' => 'Data tables', 'url' => $directoryAsset.'/pages/tables/data.html'],
+                        ],
+                    ],
+                    ['label' => 'Calendar', 'url' => $directoryAsset.'/pages/calendar.html', 'ico' => 'calendar', 'badge' => [ 'text' => '3', 'color' => 'red' ] ],
+                    ['label' => 'Mailbox', 'url' => $directoryAsset.'/pages/mailbox.html', 'ico' => 'envelope', 'badge' => [ 'text' => '12', 'color' => 'yellow' ] ],
+                    [
+                        'label' => 'Examples',
+                        'url' => $directoryAsset.'/#',
+                        'ico' => 'folder',
+                        'items' => [
+                            ['label' => 'Invoice', 'url' => $directoryAsset.'/pages/examples/invoice.html'],
+                            ['label' => 'Login', 'url' => $directoryAsset.'/pages/examples/login.html'],
+                            ['label' => 'Register', 'url' => $directoryAsset.'/pages/examples/register.html'],
+                            ['label' => 'Lockscreen', 'url' => $directoryAsset.'/pages/examples/lockscreen.html'],
+                            ['label' => '404 Error', 'url' => $directoryAsset.'/pages/examples/404.html'],
+                            ['label' => '500 Error', 'url' => $directoryAsset.'/pages/examples/500.html'],
+                            ['label' => 'Blank Page', 'url' => $directoryAsset.'/pages/examples/blank.html'],
+                        ],
+                    ],
+                ],
+            ]
+        );
+        ?>
         <!-- You can delete next ul.sidebar-menu. It's just demo. -->
 
         <ul class="sidebar-menu">
-            <li>
-                <a href="#" class="navbar-link">
-                    <i class="fa fa-angle-down"></i> <span class="text-info">Menu AdminLTE</span>
-                </a>
-            </li>
-            <li class="active">
-                <a href="<?= $directoryAsset ?>/index.html">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="<?= $directoryAsset ?>/pages/widgets.html">
-                    <i class="fa fa-th"></i> <span>Widgets</span>
-                    <small class="badge pull-right bg-green">new</small>
-                </a>
-            </li>
-            <li class="treeview">
-                <a href="<?= $directoryAsset ?>/#">
-                    <i class="fa fa-bar-chart-o"></i>
-                    <span>Charts</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?= $directoryAsset ?>/pages/charts/morris.html"><i
-                                class="fa fa-angle-double-right"></i> Morris</a></li>
-                    <li><a href="<?= $directoryAsset ?>/pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>
-                            Flot</a></li>
-                    <li><a href="<?= $directoryAsset ?>/pages/charts/inline.html"><i
-                                class="fa fa-angle-double-right"></i> Inline charts</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="<?= $directoryAsset ?>/#">
-                    <i class="fa fa-laptop"></i>
-                    <span>UI Elements</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?= $directoryAsset ?>/pages/UI/general.html"><i class="fa fa-angle-double-right"></i>
-                            General</a></li>
-                    <li><a href="<?= $directoryAsset ?>/pages/UI/icons.html"><i class="fa fa-angle-double-right"></i>
-                            Icons</a></li>
-                    <li><a href="<?= $directoryAsset ?>/pages/UI/buttons.html"><i class="fa fa-angle-double-right"></i>
-                            Buttons</a></li>
-                    <li><a href="<?= $directoryAsset ?>/pages/UI/sliders.html"><i class="fa fa-angle-double-right"></i>
-                            Sliders</a></li>
-                    <li><a href="<?= $directoryAsset ?>/pages/UI/timeline.html"><i class="fa fa-angle-double-right"></i>
-                            Timeline</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="<?= $directoryAsset ?>/#">
-                    <i class="fa fa-edit"></i> <span>Forms</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?= $directoryAsset ?>/pages/forms/general.html"><i
-                                class="fa fa-angle-double-right"></i> General Elements</a>
-                    </li>
-                    <li><a href="<?= $directoryAsset ?>/pages/forms/advanced.html"><i
-                                class="fa fa-angle-double-right"></i> Advanced
-                            Elements</a></li>
-                    <li><a href="<?= $directoryAsset ?>/pages/forms/editors.html"><i
-                                class="fa fa-angle-double-right"></i> Editors</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="<?= $directoryAsset ?>/#">
-                    <i class="fa fa-table"></i> <span>Tables</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?= $directoryAsset ?>/pages/tables/simple.html"><i
-                                class="fa fa-angle-double-right"></i> Simple tables</a>
-                    </li>
-                    <li><a href="<?= $directoryAsset ?>/pages/tables/data.html"><i class="fa fa-angle-double-right"></i>
-                            Data tables</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="<?= $directoryAsset ?>/pages/calendar.html">
-                    <i class="fa fa-calendar"></i> <span>Calendar</span>
-                    <small class="badge pull-right bg-red">3</small>
-                </a>
-            </li>
-            <li>
-                <a href="<?= $directoryAsset ?>/pages/mailbox.html">
-                    <i class="fa fa-envelope"></i> <span>Mailbox</span>
-                    <small class="badge pull-right bg-yellow">12</small>
-                </a>
-            </li>
             <li class="treeview">
                 <a href="<?= $directoryAsset ?>/#">
                     <i class="fa fa-folder"></i> <span>Examples</span>
@@ -171,7 +172,6 @@ use yii\bootstrap\Nav;
                 </ul>
             </li>
         </ul>
-
     </section>
 
 </aside>
