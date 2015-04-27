@@ -1,9 +1,11 @@
 <?php
 return [
+    //comment the line under to have english (default language)
+    'language'=>'it',
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=yii2advanced',
+            'dsn' => 'mysql:host=localhost;dbname=bookswapp',
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8',

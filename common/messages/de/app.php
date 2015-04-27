@@ -35,7 +35,6 @@ return [
     'City School' => '',
     'City User' => '',
     'Class' => '',
-    'Class ID' => '',
     'Classroom ID' => '',
     'Classrooms' => '',
     'Code School' => '',
