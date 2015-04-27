@@ -44,8 +44,8 @@ use Yii;
  * @property integer $id
  * @property integer $school_id
  * @property string $year_adoption
- * @property integer $class_id
- * @property integer $book_id_book
+ * @property integer $classroom_id
+ * @property integer $book_id
  * @property integer $possession
  * @property integer $to_buy
  * @property integer $advised
@@ -73,11 +73,11 @@ class Adoption extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['school_id', 'year_adoption', 'class_id', 'book_id_book', 'possession', 'to_buy', 'advised', 'price_adoption', 'subject_id'], 'required'],
-            [['school_id', 'class_id', 'book_id_book', 'possession', 'to_buy', 'advised', 'subject_id'], 'integer'],
+            [['school_id', 'year_adoption', 'classroom_id', 'book_id', 'possession', 'to_buy', 'advised', 'price_adoption', 'subject_id'], 'required'],
+            [['school_id', 'classroom_id', 'book_id_book', 'possession', 'to_buy', 'advised', 'subject_id'], 'integer'],
             [['year_adoption'], 'safe'],
             [['price_adoption'], 'number'],
-            [['school_id', 'year_adoption', 'class_id', 'book_id_book'], 'unique', 'targetAttribute' => ['school_id', 'year_adoption', 'class_id', 'book_id_book'], 'message' => 'The combination of School ID, Year Adoption, Class ID and Book Id Book has already been taken.']
+            [['school_id', 'year_adoption', 'classroom_id', 'book_id_book'], 'unique', 'targetAttribute' => ['school_id', 'year_adoption', 'classroom_id', 'book_id_book'], 'message' => 'The combination of School ID, Year Adoption, Class ID and Book Id Book has already been taken.']
         ];
     }
 
@@ -90,8 +90,8 @@ class Adoption extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'school_id' => Yii::t('app', 'School ID'),
             'year_adoption' => Yii::t('app', 'Year Adoption'),
-            'class_id' => Yii::t('app', 'Class ID'),
-            'book_id_book' => Yii::t('app', 'Book Id Book'),
+            'classroom_id' => Yii::t('app', 'Classroom ID'),
+            'book_id' => Yii::t('app', 'Book Id'),
             'possession' => Yii::t('app', 'Possession'),
             'to_buy' => Yii::t('app', 'To Buy'),
             'advised' => Yii::t('app', 'Advised'),
@@ -121,7 +121,7 @@ class Adoption extends \yii\db\ActiveRecord
      */
     public function getClass()
     {
-        return $this->hasOne(Classroom::className(), ['id' => 'class_id']);
+        return $this->hasOne(Classroom::className(), ['id' => 'classroom_id']);
     }
 
     /**
@@ -129,6 +129,6 @@ class Adoption extends \yii\db\ActiveRecord
      */
     public function getBookIdBook()
     {
-        return $this->hasOne(Book::className(), ['id' => 'book_id_book']);
+        return $this->hasOne(Book::className(), ['id' => 'book_id']);
     }
 }

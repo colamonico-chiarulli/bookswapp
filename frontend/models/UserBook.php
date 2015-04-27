@@ -34,69 +34,45 @@
 ?>
 <?php
 
-namespace common\models;
+namespace frontend\models;
 
 use Yii;
+use yii\base\Model;
+use common\models\User;
+use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "{{%user_has_school}}".
- *
- * @property integer $user_id
- * @property integer $school_id
- * @property string $created_at
- * @property string $updated_at
- *
- * @property User $user
- * @property School $school
+ * UserBook extends User model with user's lists books
  */
-class UserHasSchool extends \yii\db\ActiveRecord
+class UserBook extends User
 {
+    public $classroom_id;
+    public $attended_year;
+    
+    
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public function scenarios()
     {
-        return '{{%user_has_school}}';
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
     }
 
+ 
     /**
-     * @inheritdoc
+     * get list of user classroom (user_has_classroom) for dropdown
      */
-    public function rules()
-    {
-        return [
-            [['user_id', 'school_id'], 'required'],
-            [['user_id', 'school_id'], 'integer'],
-            [['created_at', 'updated_at'], 'safe']
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'user_id' => Yii::t('app', 'User ID'),
-            'school_id' => Yii::t('app', 'School ID'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-        ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSchool()
-    {
-        return $this->hasOne(School::className(), ['id' => 'school_id']);
+    public function getUserClassroomList() {
+        /*
+         * classrooms chiama la funzione GetClassrooms di User che tramite la tabella incrocio
+         * user_has_classroom genera un array con tutte le classi frequentate dall'alunno
+         */
+        $droptions = $this->classrooms;
+        return ArrayHelper::map($droptions, 'id', function($element){
+            return $element['class'] ." ". $element['section_class'] ." ". $element['attended_year'] ;
+    });
     }
 }
+
+

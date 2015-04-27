@@ -56,10 +56,10 @@ use common\models\ValueHelpers;
  *
  * @property integer $id
  * @property string $username
+ * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
- * @property string $auth_key
  * @property integer $role_id
  * @property integer $status_id
  * @property integer $user_type_id
@@ -71,18 +71,18 @@ use common\models\ValueHelpers;
  * @property UserRole $role
  * @property UserStatus $status
  * @property UserType $userType
- * @property UserHasBswSchool[] $userHasBswSchools
- * @property School[] $bswSchoolIdSchools
  * @property UserHasClassroom[] $userHasClassrooms
  * @property Classroom[] $classrooms
+ * @property UserHasSchool[] $userHasSchools
+ * @property School[] $schools
  * @property UserProfile[] $userProfiles
  */
-class User extends ActiveRecord implements IdentityInterface {
-    //Rino: Da RIMUOVERE - dopo aver verificato che non ci sono
-    //più riferimenti
-    //const STATUS_ACTIVE = 1;
-    //sostituito con 
 
+class User extends ActiveRecord implements IdentityInterface {
+   
+    /**
+     * @inheritdoc
+     */
     public static function tableName() {
         return '{{%user}}';
     }
@@ -127,8 +127,9 @@ class User extends ActiveRecord implements IdentityInterface {
         ];
     }
 
-    /* Your model attribute labels */
-
+     /**
+     * @inheritdoc
+     */
     public function attributeLabels() {
         return [
             /* Your other attribute labels */
@@ -359,7 +360,7 @@ class User extends ActiveRecord implements IdentityInterface {
      * @getProfile
      * 
      */
-    public function getProfile() {
+    public function getUserProfile() {
         return $this->hasOne(UserProfile::className(), ['user_id' => 'id']);
     }
 
@@ -399,6 +400,56 @@ class User extends ActiveRecord implements IdentityInterface {
         $url = Url::to(['user/view', 'id' => $this->id]);
         $options = [];
         return Html::a($this->username, $url, $options);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBookmarks()
+    {
+        return $this->hasMany(Bookmark::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSwaps()
+    {
+        return $this->hasMany(Swap::className(), ['seller_user_id' => 'id']);
+    }
+    
+        /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserHasClassrooms()
+    {
+        return $this->hasMany(UserHasClassroom::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getClassrooms()
+    {
+        return $this->hasMany(Classroom::className(), ['id' => 'classroom_id'])
+                ->viaTable('{{%user_has_classroom}}', ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserHasSchools()
+    {
+        return $this->hasMany(UserHasSchool::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSchools()
+    {
+        return $this->hasMany(School::className(), ['id' => 'school_id'])
+                ->viaTable('{{%user_has_school}}', ['user_id' => 'id']);
     }
 
 }

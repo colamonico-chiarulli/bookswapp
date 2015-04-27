@@ -43,7 +43,7 @@ use Yii;
  *
  * @property integer $user_id
  * @property integer $classroom_id
- * @property string $year
+ * @property string $attended_year
  *
  * @property User $user
  * @property Classroom $classroom
@@ -64,9 +64,9 @@ class UserHasClassroom extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'classroom_id', 'year'], 'required'],
+            [['user_id', 'classroom_id', 'attended_year'], 'required'],
             [['user_id', 'classroom_id'], 'integer'],
-            [['year'], 'safe']
+            [['attended_year'], 'safe']
         ];
     }
 
@@ -78,7 +78,7 @@ class UserHasClassroom extends \yii\db\ActiveRecord
         return [
             'user_id' => Yii::t('app', 'User ID'),
             'classroom_id' => Yii::t('app', 'Classroom ID'),
-            'year' => Yii::t('app', 'Year'),
+            'attended_year' => Yii::t('app', 'Attended Year'),
         ];
     }
 
