@@ -122,7 +122,7 @@ class Book extends \yii\db\ActiveRecord
      */
     public function getAdoptions()
     {
-        return $this->hasMany(Adoption::className(), ['book_id_book' => 'id']);
+        return $this->hasMany(Adoption::className(), ['book_id' => 'id']);
     }
 
     /**

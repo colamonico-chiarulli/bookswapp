@@ -46,8 +46,8 @@ use Yii;
  * @property integer $reserved
  * @property string $date_bookmark
  *
- * @property User $user
  * @property Book $book
+ * @property User $user
  */
 class Bookmark extends \yii\db\ActiveRecord
 {
@@ -87,16 +87,16 @@ class Bookmark extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getBook()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(Book::className(), ['id' => 'book_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBook()
+    public function getUser()
     {
-        return $this->hasOne(Book::className(), ['id' => 'book_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

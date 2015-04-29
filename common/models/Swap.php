@@ -53,10 +53,10 @@ use Yii;
  * @property integer $book_id
  * @property integer $condition_id
  *
- * @property User $sellerUser
- * @property Book $book
  * @property Condition $condition
  * @property User $buyerUser
+ * @property User $sellerUser
+ * @property Book $book
  */
 class Swap extends \yii\db\ActiveRecord
 {
@@ -105,22 +105,6 @@ class Swap extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSellerUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'seller_user_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBook()
-    {
-        return $this->hasOne(Book::className(), ['id' => 'book_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getCondition()
     {
         return $this->hasOne(Condition::className(), ['id' => 'condition_id']);
@@ -132,5 +116,21 @@ class Swap extends \yii\db\ActiveRecord
     public function getBuyerUser()
     {
         return $this->hasOne(User::className(), ['id' => 'buyer_user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSellerUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'seller_user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBook()
+    {
+        return $this->hasOne(Book::className(), ['id' => 'book_id']);
     }
 }

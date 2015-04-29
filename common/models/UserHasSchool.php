@@ -46,8 +46,8 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property User $user
  * @property School $school
+ * @property User $user
  */
 class UserHasSchool extends \yii\db\ActiveRecord
 {
@@ -87,16 +87,16 @@ class UserHasSchool extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getSchool()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(School::className(), ['id' => 'school_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSchool()
+    public function getUser()
     {
-        return $this->hasOne(School::className(), ['id' => 'school_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }
