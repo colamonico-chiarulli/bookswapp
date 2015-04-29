@@ -55,9 +55,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'year_adoption') ?>
 
-    <?= $form->field($model, 'class_id') ?>
+    <?= $form->field($model, 'classroom_id') ?>
 
-    <?= $form->field($model, 'book_id_book') ?>
+    <?= $form->field($model, 'book_id') ?>
 
     <?php // echo $form->field($model, 'possession') ?>
 

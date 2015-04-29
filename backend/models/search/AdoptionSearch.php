@@ -52,7 +52,7 @@ class AdoptionSearch extends Adoption
     public function rules()
     {
         return [
-            [['id', 'school_id', 'class_id', 'book_id_book', 'possession', 'to_buy', 'advised', 'subject_id'], 'integer'],
+            [['id', 'school_id', 'classroom_id', 'book_id', 'possession', 'to_buy', 'advised', 'subject_id'], 'integer'],
             [['year_adoption'], 'safe'],
             [['price_adoption'], 'number'],
         ];
@@ -94,8 +94,8 @@ class AdoptionSearch extends Adoption
             'id' => $this->id,
             'school_id' => $this->school_id,
             'year_adoption' => $this->year_adoption,
-            'class_id' => $this->class_id,
-            'book_id_book' => $this->book_id_book,
+            'classroom_id' => $this->classroom_id,
+            'book_id' => $this->book_id,
             'possession' => $this->possession,
             'to_buy' => $this->to_buy,
             'advised' => $this->advised,
