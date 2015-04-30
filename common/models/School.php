@@ -60,8 +60,8 @@ use Yii;
  *
  * @property Adoption[] $adoptions
  * @property Classroom[] $classrooms
- * @property UserHasBswSchool[] $userHasBswSchools
- * @property User[] $bswUserIdUsers
+ * @property UserHasSchool[] $userHasSchools
+ * @property User[] $users
  */
 class School extends \yii\db\ActiveRecord
 {
@@ -135,16 +135,16 @@ class School extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUserHasBswSchools()
+    public function getUserHasSchools()
     {
-        return $this->hasMany(UserHasBswSchool::className(), ['bsw_school_id_school' => 'id']);
+        return $this->hasMany(UserHasSchool::className(), ['school_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBswUserIdUsers()
+    public function getUsers()
     {
-        return $this->hasMany(User::className(), ['id' => 'bsw_user_id_user'])->viaTable('{{%user_has_bsw_school}}', ['bsw_school_id_school' => 'id']);
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('{{%user_has_school}}', ['school_id' => 'id']);
     }
 }

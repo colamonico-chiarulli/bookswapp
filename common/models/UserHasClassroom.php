@@ -45,8 +45,8 @@ use Yii;
  * @property integer $classroom_id
  * @property string $attended_year
  *
- * @property User $user
  * @property Classroom $classroom
+ * @property User $user
  */
 class UserHasClassroom extends \yii\db\ActiveRecord
 {
@@ -85,16 +85,16 @@ class UserHasClassroom extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getClassroom()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(Classroom::className(), ['id' => 'classroom_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getClassroom()
+    public function getUser()
     {
-        return $this->hasOne(Classroom::className(), ['id' => 'classroom_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

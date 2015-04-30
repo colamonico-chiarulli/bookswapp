@@ -94,7 +94,7 @@ class Classroom extends \yii\db\ActiveRecord
      */
     public function getAdoptions()
     {
-        return $this->hasMany(Adoption::className(), ['class_id' => 'id']);
+        return $this->hasMany(Adoption::className(), ['classroom_id' => 'id']);
     }
 
     /**
