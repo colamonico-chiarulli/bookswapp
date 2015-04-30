@@ -56,6 +56,7 @@ use Yii;
  * @property Classroom $classroom
  * @property School $school
  * @property Subject $subject
+ * @property Publisher $publisher
  */
 class Adoption extends \yii\db\ActiveRecord
 {
@@ -130,5 +131,14 @@ class Adoption extends \yii\db\ActiveRecord
     public function getSubject()
     {
         return $this->hasOne(Subject::className(), ['id' => 'subject_id']);
+    }
+    
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getPublisher()
+    {
+        return $this->hasOne(Publisher::className(), ['id'=>'publisher_id'])
+                    ->viaTable('{{%book}}', ['id' => 'book_id']);
     }
 }
