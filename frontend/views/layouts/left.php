@@ -1,35 +1,69 @@
 <?php
+     /**************************************************************************************
+     * Bookswapp is a web application which allow students to exchange their textbooks
+     * It is developed by students of ITE "C. Colamonico" - Sistemi Informativi Aziendali
+     * Acquaviva delle Fonti (BA) - Italy
+     *
+     * Bookswapp is free software; you can redistribute it and/or modify it under
+     * the terms of the GNU Affero General Public License version 3 as published by the
+     * Free Software Foundation
+     *
+     * Bookswapp is distributed in the hope that it will be useful, but WITHOUT
+     * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+     * FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
+     * details.
+     *
+     * You should have received a copy of the GNU Affero General Public License along 
+     * with this program; if not, see http://www.gnu.org/licenses or write to the Free
+     * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+     * 02110-1301 USA.
+     *
+     * You can contact ITE "C. Colamonico" with a mailing address at Via Colamonico, 5 
+     * 70021 - Acquaviva delle Fonti (BA) Italy, or at email address bookswapp@itccolamonico.it.
+     *
+     * The interactive user interfaces in original and modified versions
+     * of this program must display Appropriate Legal Notices, as required under
+     * Section 5 of the GNU Affero General Public License version 3.
+     *
+     * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+     * these Appropriate Legal Notices must retain the display of the Bookswapp
+     * logo and ITE "C. Colamonico" copyright notice. If the display of the logo is not reasonably
+     * feasible for technical reasons, the Appropriate Legal Notices must display the words
+     * "Copyright ITE C. Colamonico - http://www.itccolamonico.it - 2014. All rights reserved".
+     ****************************************************************************************/
+?>
+<?php
 use yii\bootstrap\Nav;
 use common\components\NavLTE;
 
 ?>
-<aside class="left-side sidebar-offcanvas">
+<aside class="main-sidebar">
 
     <section class="sidebar">
 
-        <?php if (!Yii::$app->user->isGuest) : ?>
-            <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="<?= $directoryAsset ?>/img/avatar5.png" class="img-circle" alt="User Image"/>
-                </div>
-                <div class="pull-left info">
-                    <p>Hello, <?= @Yii::$app->user->identity->username ?></p>
-                    <a href="<?= $directoryAsset ?>/#">
-                        <i class="fa fa-circle text-success"></i> Online
-                    </a>
-                </div>
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
             </div>
-        <?php endif ?>
+            <div class="pull-left info">
+                <p>Alexander Pierce</p>
 
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+
+        <!-- search form -->
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                            <span class="input-group-btn">
-                                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i
-                                        class="fa fa-search"></i></button>
-                            </span>
+                <span class="input-group-btn">
+                    <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
+                    </button>
+                </span>
             </div>
         </form>
+        <!-- /.search form -->
 
         <?=
         Nav::widget(
@@ -37,141 +71,64 @@ use common\components\NavLTE;
                 'encodeLabels' => false,
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
-                    [
-                        'label' => '<span class="fa fa-angle-down"></span><span class="text-info">Menu Yii2</span>',
-                        'url' => '#'
-                    ],
+                    '<li class="header">Menu Yii2</li>',
                     ['label' => '<span class="fa fa-file-code-o"></span> Gii', 'url' => ['/gii']],
                     ['label' => '<span class="fa fa-dashboard"></span> Debug', 'url' => ['/debug']],
+                    [
+                        'label' => '<span class="glyphicon glyphicon-lock"></span> Sing in', //for basic
+                        'url' => ['/site/login'],
+                        'visible' => Yii::$app->user->isGuest
+                    ],
                 ],
             ]
         );
-        ?>
 
-        
-<?=
-        NavLTE::widget(
-            [
-                'encodeLabels' => false,
-                'items' => [
-                    [
-                        'label' => 'Menu Yii2',
-                        'url' => '#',
-                        'ico' => 'angle-down',
-                        'textClass'=> ['text-info']
-                    ],
-                    ['label' => 'Gii', 'url' => ['/gii'], 'ico' => 'file-code-o' ],
-                    ['label' => 'Debug', 'url' => ['/debug'], 'ico' => 'dashboard' ],
-                ],
-            ]
-        );
         ?>
-        <!-- You can delete next ul.sidebar-menu. It's just demo. -->
-        <?=
-        NavLTE::widget(
-            [
-                'items' => [
-                    [
-                        'label' => 'Menu AdminLTE',
-                        'url' => '#',
-                        'ico' => 'angle-down',
-                        'textClass'=> ['text-info']
-                    ],
-                    ['label' => 'Dashboard', 'url' => $directoryAsset.'/index.html', 'ico' => 'dashboard' ],
-                    ['label' => 'Widgets', 'url' => $directoryAsset.'/pages/widgets.html', 'ico' => 'th', 'badge' => [ 'text' => 'new', 'color' => 'green', 'ico' => 'check' ] ],
-                    [
-                        'label' => 'Charts',
-                        'url' => $directoryAsset.'/#',
-                        'ico' => 'bar-chart-o',
-                        'items' => [
-                            ['label' => 'Morris', 'url' => $directoryAsset.'/pages/charts/morris.html'],
-                            ['label' => 'Flot', 'url' => $directoryAsset.'/pages/charts/flot.html'],
-                            ['label' => 'Inline chart', 'url' => $directoryAsset.'/pages/charts/inline.html', 'ico' => 'circle'],
-                        ],
-                    ],
-                    [
-                        'label' => 'UI Elements',
-                        'url' => $directoryAsset.'/#',
-                        'ico' => 'laptop',
-                        'items' => [
-                            ['label' => 'General', 'url' => $directoryAsset.'/pages/UI/general.html'],
-                            ['label' => 'Icons', 'url' => $directoryAsset.'/pages/UI/icons.html', 'badge' => '11'],
-                            ['label' => 'Buttons', 'url' => $directoryAsset.'/pages/UI/buttons.html'],
-                            ['label' => 'Sliders', 'url' => $directoryAsset.'/pages/UI/sliders.html', 'badge' => [ 'ico' => 'th' ] ],
-                            ['label' => 'Timeline', 'url' => $directoryAsset.'/pages/UI/timeline.html'],
-                        ],
-                    ],
-                    [
-                        'label' => 'Forms',
-                        'url' => $directoryAsset.'/#',
-                        'ico' => 'edit',
-                        'items' => [
-                            ['label' => 'General Elements', 'url' => $directoryAsset.'/pages/forms/general.html'],
-                            ['label' => 'Advanced Elements', 'url' => $directoryAsset.'/pages/forms/advanced.html'],
-                            ['label' => 'Editors', 'url' => $directoryAsset.'/pages/forms/editors.html'],
-                        ],
-                    ],
-                    [
-                        'label' => 'Tables',
-                        'url' => $directoryAsset.'/#',
-                        'ico' => 'table',
-                        'items' => [
-                            ['label' => 'Simple tables', 'url' => $directoryAsset.'/pages/tables/simple.html'],
-                            ['label' => 'Data tables', 'url' => $directoryAsset.'/pages/tables/data.html'],
-                        ],
-                    ],
-                    ['label' => 'Calendar', 'url' => $directoryAsset.'/pages/calendar.html', 'ico' => 'calendar', 'badge' => [ 'text' => '3', 'color' => 'red' ] ],
-                    ['label' => 'Mailbox', 'url' => $directoryAsset.'/pages/mailbox.html', 'ico' => 'envelope', 'badge' => [ 'text' => '12', 'color' => 'yellow' ] ],
-                    [
-                        'label' => 'Examples',
-                        'url' => $directoryAsset.'/#',
-                        'ico' => 'folder',
-                        'items' => [
-                            ['label' => 'Invoice', 'url' => $directoryAsset.'/pages/examples/invoice.html'],
-                            ['label' => 'Login', 'url' => $directoryAsset.'/pages/examples/login.html'],
-                            ['label' => 'Register', 'url' => $directoryAsset.'/pages/examples/register.html'],
-                            ['label' => 'Lockscreen', 'url' => $directoryAsset.'/pages/examples/lockscreen.html'],
-                            ['label' => '404 Error', 'url' => $directoryAsset.'/pages/examples/404.html'],
-                            ['label' => '500 Error', 'url' => $directoryAsset.'/pages/examples/500.html'],
-                            ['label' => 'Blank Page', 'url' => $directoryAsset.'/pages/examples/blank.html'],
-                        ],
-                    ],
-                ],
-            ]
-        );
-        ?>
-        <!-- You can delete next ul.sidebar-menu. It's just demo. -->
 
         <ul class="sidebar-menu">
             <li class="treeview">
-                <a href="<?= $directoryAsset ?>/#">
-                    <i class="fa fa-folder"></i> <span>Examples</span>
+                <a href="#">
+                    <i class="fa fa-share"></i> <span>Same tools</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li>
-                        <a href="<?= $directoryAsset ?>/pages/examples/invoice.html">
-                            <i class="fa fa-angle-double-right"></i> Invoice</a>
+                    <li><a href="<?= \yii\helpers\Url::to(['/gii']) ?>"><span class="fa fa-file-code-o"></span> Gii</a>
+                    </li>
+                    <li><a href="<?= \yii\helpers\Url::to(['/debug']) ?>"><span class="fa fa-dashboard"></span> Debug</a>
                     </li>
                     <li>
-                        <a href="<?= $directoryAsset ?>/pages/examples/login.html"><i
-                                class="fa fa-angle-double-right"></i> Login</a>
+                        <a href="#"><i class="fa fa-circle-o"></i> Level One <i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-circle-o"></i> Level Two <i class="fa fa-angle-left pull-right"></i>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
-                    <li><a href="<?= $directoryAsset ?>/pages/examples/register.html"><i
-                                class="fa fa-angle-double-right"></i> Register</a>
-                    </li>
-                    <li><a href="<?= $directoryAsset ?>/pages/examples/lockscreen.html"><i
-                                class="fa fa-angle-double-right"></i> Lockscreen</a>
-                    </li>
-                    <li><a href="<?= $directoryAsset ?>/pages/examples/404.html"><i
-                                class="fa fa-angle-double-right"></i> 404 Error</a></li>
-                    <li><a href="<?= $directoryAsset ?>/pages/examples/500.html"><i
-                                class="fa fa-angle-double-right"></i> 500 Error</a></li>
-                    <li><a href="<?= $directoryAsset ?>/pages/examples/blank.html"><i
-                                class="fa fa-angle-double-right"></i> Blank Page</a></li>
                 </ul>
             </li>
         </ul>
+        <?php
+        $items[] = [
+            'label' => 'Bookswapp',
+            'ico' => 'book',
+            'items' => [
+                ['label' => 'Elenco Libri', 'url' => ['book-list/user-book']],
+            ]
+        ];
+
+        $menuItems['items'] = $items;
+        if (!Yii::$app->user->isGuest) {
+            echo NavLTE::widget($menuItems);
+        }
+
+        ?>
     </section>
 
 </aside>

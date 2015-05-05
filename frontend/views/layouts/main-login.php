@@ -33,37 +33,30 @@
      ****************************************************************************************/
 ?>
 <?php
-use yii\widgets\Breadcrumbs;
-use dmstr\widgets\Alert;
+use yii\helpers\Html;
+
+/* @var $this \yii\web\View */
+/* @var $content string */
+
+dmstr\web\AdminLteAsset::register($this);
 ?>
-<div class="content-wrapper">
-    <section class="content-header">
-        <h1>
-            <?php
-            if ($this->title !== null) {
-                echo $this->title;
-            } else {
-                echo \yii\helpers\Inflector::camel2words(\yii\helpers\Inflector::id2camel($this->context->module->id));
-                echo ($this->context->module->id !== \Yii::$app->id) ? '<small>Module</small>' : '';
-            } ?>
-        </h1>
-        <?=
-        Breadcrumbs::widget(
-            [
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]
-        ) ?>
-    </section>
+<?php $this->beginPage() ?>
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>">
+<head>
+    <meta charset="<?= Yii::$app->charset ?>"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
+</head>
+<body class="login-page">
 
-    <section class="content">
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </section>
-</div>
+<?php $this->beginBody() ?>
 
-<footer class="main-footer">
-    <div class="pull-right hidden-xs">
-        <b>Version</b> 2.0
-    </div>
-    <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
-</footer>
+    <?= $content ?>
+
+<?php $this->endBody() ?>
+</body>
+</html>
+<?php $this->endPage() ?>
