@@ -120,7 +120,7 @@ return [
     'Phone2 School' => '',
     'Phone2 User' => '',
     'Please Choose One' => '',
-    'Possession' => '',
+    'owned' => '',
     'Price' => '',
     'Price Adoption' => '',
     'Price Swap' => '',

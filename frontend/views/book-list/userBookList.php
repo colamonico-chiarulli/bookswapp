@@ -62,7 +62,7 @@ use yii\grid\GridView;
                 //'book.isbn',
                 //'book.title',
                 //'publisher.publisher',
-                'possession',
+                'owned',
                 'to_buy',
                 'advised',
                 'price_adoption',

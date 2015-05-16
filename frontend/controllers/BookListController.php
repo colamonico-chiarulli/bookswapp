@@ -35,10 +35,7 @@
 <?php namespace frontend\controllers;
 
 use Yii;
-use yii\data\Pagination;
 use common\models\UserHasClassroom;
-use yii\db\Query;
-use common\models\Book;
 use frontend\models\search\AdoptionBookSearch;
 
 class BookListController extends \yii\web\Controller

@@ -59,7 +59,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'book_id') ?>
 
-    <?php // echo $form->field($model, 'possession') ?>
+    <?php // echo $form->field($model, 'owned') ?>
 
     <?php // echo $form->field($model, 'to_buy') ?>
 

@@ -128,7 +128,7 @@ return [
     'Phone2 School' => 'Telefono secondario scuola',
     'Phone2 User' => 'Telefono secondario utente',
     'Please Choose One' => 'scegli un valore',
-    'Possession' => 'In possesso',
+    'owned' => 'In possesso',
     'Price' => 'Prezzo',
     'Price Adoption' => 'Prezzo adozione',
     'Price Swap' => 'Prezzo scambio',

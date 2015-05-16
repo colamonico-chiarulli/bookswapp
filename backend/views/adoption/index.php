@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'year_adoption',
             'classroom_id',
             'book_id',
-            // 'possession',
+            // 'owned',
             // 'to_buy',
             // 'advised',
             // 'price_adoption',

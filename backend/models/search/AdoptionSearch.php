@@ -36,7 +36,6 @@
 
 namespace backend\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Adoption;
@@ -52,7 +51,7 @@ class AdoptionSearch extends Adoption
     public function rules()
     {
         return [
-            [['id', 'school_id', 'classroom_id', 'book_id', 'possession', 'to_buy', 'advised', 'subject_id'], 'integer'],
+            [['id', 'school_id', 'classroom_id', 'book_id', 'owned', 'to_buy', 'advised', 'subject_id'], 'integer'],
             [['year_adoption'], 'safe'],
             [['price_adoption'], 'number'],
         ];
@@ -96,7 +95,7 @@ class AdoptionSearch extends Adoption
             'year_adoption' => $this->year_adoption,
             'classroom_id' => $this->classroom_id,
             'book_id' => $this->book_id,
-            'possession' => $this->possession,
+            'owned' => $this->owned,
             'to_buy' => $this->to_buy,
             'advised' => $this->advised,
             'price_adoption' => $this->price_adoption,

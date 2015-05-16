@@ -46,7 +46,7 @@ use Yii;
  * @property string $year_adoption
  * @property integer $classroom_id
  * @property integer $book_id
- * @property integer $possession
+ * @property integer $owned
  * @property integer $to_buy
  * @property integer $advised
  * @property string $price_adoption
@@ -74,8 +74,8 @@ class Adoption extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['school_id', 'year_adoption', 'classroom_id', 'book_id', 'possession', 'to_buy', 'advised', 'price_adoption', 'subject_id'], 'required'],
-            [['school_id', 'classroom_id', 'book_id', 'possession', 'to_buy', 'advised', 'subject_id'], 'integer'],
+            [['school_id', 'year_adoption', 'classroom_id', 'book_id', 'owned', 'to_buy', 'advised', 'price_adoption', 'subject_id'], 'required'],
+            [['school_id', 'classroom_id', 'book_id', 'owned', 'to_buy', 'advised', 'subject_id'], 'integer'],
             [['year_adoption'], 'safe'],
             [['price_adoption'], 'number'],
             [['school_id', 'year_adoption', 'classroom_id', 'book_id'], 'unique', 'targetAttribute' => ['school_id', 'year_adoption', 'classroom_id', 'book_id'], 'message' => 'The combination of School ID, Year Adoption, Classroom ID and Book ID has already been taken.']
@@ -93,7 +93,7 @@ class Adoption extends \yii\db\ActiveRecord
             'year_adoption' => Yii::t('app', 'Year Adoption'),
             'classroom_id' => Yii::t('app', 'Classroom ID'),
             'book_id' => Yii::t('app', 'Book ID'),
-            'possession' => Yii::t('app', 'Possession'),
+            'owned' => Yii::t('app', 'owned'),
             'to_buy' => Yii::t('app', 'To Buy'),
             'advised' => Yii::t('app', 'Advised'),
             'price_adoption' => Yii::t('app', 'Price Adoption'),

@@ -50,11 +50,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'year_adoption')->textInput(['maxlength' => 4]) ?>
 
-    <?= $form->field($model, 'class_id')->textInput() ?>
+    <?= $form->field($model, 'classroom_id')->textInput() ?>
 
-    <?= $form->field($model, 'book_id_book')->textInput() ?>
+    <?= $form->field($model, 'book_id')->textInput() ?>
 
-    <?= $form->field($model, 'possession')->textInput() ?>
+    <?= $form->field($model, 'owned')->textInput() ?>
 
     <?= $form->field($model, 'to_buy')->textInput() ?>
 
