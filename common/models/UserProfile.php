@@ -69,6 +69,8 @@ use yii\db\Expression;
  * @property Gender $gender
  */
 class UserProfile extends \yii\db\ActiveRecord {
+    
+     public $searchbox;
 
     /**
      * @inheritdoc

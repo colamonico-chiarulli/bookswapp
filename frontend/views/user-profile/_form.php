@@ -37,13 +37,17 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\jui\DatePicker;
+use yii\helpers\BaseHtml;
+use frontend\assets\MapAsset;
+MapAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UserProfile; */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<div class="col-md-6">
 
-<div class="profile-form">
+    <div class="profile-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -64,10 +68,50 @@ use yii\jui\DatePicker;
     $form->field($model, 'gender_id')->dropDownList($model->genderList, ['prompt' => Yii::t('app', 'Please Choose One')]);
     ?>
     
+
+    
+
+ 
+  <p>Type in a place or business known to Google Places:</p>
+ 
+    <?= $form->field($model, 'searchbox')->textInput(['maxlength' => 255])->label('Place') ?>
+     
+    <?= $form->field($model, 'zip_user')->textInput(['maxlength' => 5]) ?>
+    <?= $form->field($model, 'city_user')->textInput(['maxlength' => 60]) ?>
+    <?= $form->field($model, 'district_user')->textInput(['maxlength' => 2]) ?>
+    <?= $form->field($model, 'address_user')->textInput(['maxlength' => 60]) ?>
+    <?= BaseHtml::activeHiddenInput($model, 'geo_lat_user'); ?>
+    <?= BaseHtml::activeHiddenInput($model, 'geo_lng_user'); ?>
+ 
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
-
+ 
     <?php ActiveForm::end(); ?>
+ 
+</div>
+</div> <!-- end col1 -->
+<div class="col-md-6">
+<div id="map-canvas">
+  <article></article>
+</div>
+</div> <!-- end col2 -->
 
 </div>
+<?php
+ 
+  $gpJsLink= 'http://maps.googleapis.com/maps/api/js?' . http_build_query(array(
+                          'libraries' => 'places',
+                          'sensor' => 'true',
+                  ));
+  echo $this->registerJsFile($gpJsLink);
+ 
+  $options = '{"types":["establishment"]}';
+  echo $this->registerJs("(function(){
+        var input = document.getElementById('userprofile-searchbox');
+        var options = $options;        
+        searchbox = new google.maps.places.Autocomplete(input, options);
+        setupListeners();
+})();" , \yii\web\View::POS_END );
+// 'setupBounds('.$bound_bl.','.$bound_tr.');
