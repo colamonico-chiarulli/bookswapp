@@ -1,0 +1,10 @@
+Utenti registrati
+
+
+user -> password (3asia 2012)
+
+admin -> password
+
+superuser -> password
+
+alunno3asia->password (classe 3Asia - 2013, 4bSIA 2014)
