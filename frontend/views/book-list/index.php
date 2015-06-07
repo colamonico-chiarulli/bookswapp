@@ -26,12 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'title',
-            'owned',
             [
                 'attribute' =>  'owned',
                 'format' => 'image',
                 'value' => function($data){
-                    if($data['owned']!=0) return Yii::$app->request->BaseUrl.'/../../img/ok.jpg';
+                    if($data['owned']!=0) return Yii::$app->request->BaseUrl.'/../../img/ok.png';
                     else return Yii::$app->request->BaseUrl.'/../../img/no.png';
                 }
             ],
@@ -51,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'auth_key',
             //'password_hash',
             //'password_reset_token',
-            'email:email',
+            //'email:email',
             // 'role_id',
             // 'status_id',
             // 'user_type_id',
