@@ -27,6 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'title',
             'owned',
+            [
+                'attribute' =>  'owned',
+                'format' => 'image',
+                'value' => function($data){
+                    if($data['owned']!=0) return Yii::$app->request->BaseUrl.'/../../img/ok.jpg';
+                    else return Yii::$app->request->BaseUrl.'/../../img/no.png';
+                }
+            ],
             'isbn',
             'subtitle',
             'authors',
