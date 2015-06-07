@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -14,10 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -25,15 +22,24 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'title',
             [
                 'attribute' =>  'owned',
                 'format' => 'image',
                 'value' => function($data){
-                    if($data['owned']!=0) return Yii::$app->request->BaseUrl.'/../../img/ok.png';
-                    else return Yii::$app->request->BaseUrl.'/../../img/no.png';
+                        if($data['buyer_user_id']==Yii::$app->user->getId())
+                        {
+                                if($data['sold']==1){
+                                        return Yii::$app->request->BaseUrl.'/../../img/ok.png';
+                                }else{
+                                        return Yii::$app->request->BaseUrl.'/../../img/transation.png';
+                                }
+                        }
+                        elseif($data['owned']==0){
+                                return Yii::$app->request->BaseUrl.'/../../img/no.png';
+                        }
                 }
             ],
+            'title',
             'isbn',
             'subtitle',
             'authors',

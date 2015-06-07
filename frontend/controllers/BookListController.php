@@ -23,7 +23,7 @@ use frontend\models\Book;
 /**
  * Description of BookListController
  *
- * @author Mattia
+ * @author Mattia Raffaele
  */
 class BookListController extends Controller{
     
@@ -31,7 +31,12 @@ class BookListController extends Controller{
     {
         $query = new Query;
         $query->select("*")
-                ->from('bsw_book')
+                ->from('bsw_swap')
+                ->join(
+                        "RIGHT JOIN",
+                        "bsw_book",
+                        "bsw_book.id = bsw_swap.book_id"
+                        )
                 ->join(
                         "INNER JOIN",
                         "bsw_adoption",
@@ -49,7 +54,8 @@ class BookListController extends Controller{
                         "bsw_user",
                         "bsw_user.id = bsw_user_has_classroom.user_id"
                         )
-                ->where("bsw_user.id = ".Yii::$app->user->getId());
+                ->where("bsw_user.id = ".Yii::$app->user->getId())
+                ->andwhere("bsw_adoption.owned = 0");
                 
         $searchModel = new UserSearch();
         //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
