@@ -38,7 +38,7 @@ use Yii;
 use common\models\UserHasClassroom;
 use frontend\models\search\AdoptionBookSearch;
 
-class BookListController extends \yii\web\Controller
+class BooklistController extends \yii\web\Controller
 {
 
     /**
