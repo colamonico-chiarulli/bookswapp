@@ -32,20 +32,29 @@
      * "Copyright ITE C. Colamonico - http://www.itccolamonico.it - 2014. All rights reserved".
      ****************************************************************************************/
 ?>
-<?php namespace frontend\controllers;
+<?php 
+
+namespace frontend\controllers;
 
 use Yii;
 use common\models\UserHasClassroom;
 use frontend\models\search\AdoptionBookSearch;
 
-class BooklistController extends \yii\web\Controller
+class BookListController extends \yii\web\Controller
 {
+
+    public function actionIndex()
+    {
+        
+        
+        return $this->render('index');
+    }
 
     /**
      * List all books adopted in classrooms attendend by logged user
      * @return mixed
      */
-    public function actionUserBook()
+    public function actionBookList()
     {
         $id = Yii::$app->user->identity->id;
         //retrieve all user's classroom
@@ -53,6 +62,8 @@ class BooklistController extends \yii\web\Controller
 
         //Create a dataProvider for each classroom attended by user
         $i=0;
+        $searchModels = null;
+        $dataProviders = null;
         foreach ($classrooms as $classroom) {
             
             $searchModels[$i] = new AdoptionBookSearch();
