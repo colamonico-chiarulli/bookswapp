@@ -47,7 +47,7 @@ use common\components\NavLTE;
                 <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
+                <p>Bookswapp</p>
 
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -63,71 +63,23 @@ use common\components\NavLTE;
                 </span>
             </div>
         </form>
-        <!-- /.search form -->
-
-        <?=
-        Nav::widget(
-            [
-                'encodeLabels' => false,
-                'options' => ['class' => 'sidebar-menu'],
-                'items' => [
-                    '<li class="header">Menu Yii2</li>',
-                    ['label' => '<span class="fa fa-file-code-o"></span> Gii', 'url' => ['/gii']],
-                    ['label' => '<span class="fa fa-dashboard"></span> Debug', 'url' => ['/debug']],
-                    [
-                        'label' => '<span class="glyphicon glyphicon-lock"></span> Sing in', //for basic
-                        'url' => ['/site/login'],
-                        'visible' => Yii::$app->user->isGuest
-                    ],
-                ],
-            ]
-        );
-
-        ?>
-
-        <ul class="sidebar-menu">
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-share"></i> <span>Same tools</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?= \yii\helpers\Url::to(['/gii']) ?>"><span class="fa fa-file-code-o"></span> Gii</a>
-                    </li>
-                    <li><a href="<?= \yii\helpers\Url::to(['/debug']) ?>"><span class="fa fa-dashboard"></span> Debug</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-circle-o"></i> Level One <i class="fa fa-angle-left pull-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-circle-o"></i> Level Two <i class="fa fa-angle-left pull-right"></i>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+        
         <?php
-        $items[] = [
-            'label' => 'Bookswapp',
-            'ico' => 'book',
-            'items' => [
-                ['label' => 'Elenco Libri', 'url' => ['book-list/user-book']],
-            ]
-        ];
+            $items[] = [
+                'label' => 'Bookswapp',
+                'ico' => 'book',
+                'items' => [
+                    ['label' => 'Elenco Libri', 'url' => ['book-list/user-book']],
+                ]
+            ];
 
-        $menuItems['items'] = $items;
-        if (!Yii::$app->user->isGuest) {
-            echo NavLTE::widget($menuItems);
-        }
+            $items[] = ['label' => 'Book List','ico' => 'address-book-o' , 'url' => ['/book-list']];
+            $items[] = ['label' => 'User Profile','ico' => 'child' , 'url' => ['/user-profile']];
 
+            $menuItems['items'] = $items;
+            if (!Yii::$app->user->isGuest) {
+                echo NavLTE::widget($menuItems);
+            }
         ?>
     </section>
 

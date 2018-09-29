@@ -38,12 +38,12 @@ namespace frontend\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\UserProfile;
+use common\models\Adoption;
 
 /**
  * UserProfileSearch represents the model behind the search form about `common\models\UserProfile;`.
  */
-class UserProfileSearch extends UserProfile
+class AdoptionSearch extends Adoption
 {
     /**
      * @inheritdoc
@@ -51,8 +51,8 @@ class UserProfileSearch extends UserProfile
     public function rules()
     {
         return [
-            [['id', 'user_id', 'gender_id'], 'integer'],
-            [['first_name', 'last_name', 'birthdate', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'school_id', 'book_id', 'classroom_id', 'subject_id', 'owned', 'to_buy', 'advised'], 'integer'],
+            [['year_adoption', 'price_adoption'], 'safe'],
         ];
     }
 
@@ -74,7 +74,7 @@ class UserProfileSearch extends UserProfile
      */
     public function search($params)
     {
-        $query = UserProfile::find();
+        $query = Adoption::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -90,15 +90,15 @@ class UserProfileSearch extends UserProfile
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'birthdate' => $this->birthdate,
-            'gender_id' => $this->gender_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'school_id' => $this->school_id,
+            'year_adoption' => $this->year_adoption,
+            'classroom_id' => $this->classroom_id,
+            'book_id' => $this->book_id,
+            'owned' => $this->owned,
+            'to_buy' => $this->to_buy,
+            'advised' => $this->advised,
+            'subject_id' => $this->subject_id,
         ]);
-
-        $query->andFilterWhere(['like', 'first_name', $this->first_name])
-            ->andFilterWhere(['like', 'last_name', $this->last_name]);
 
         return $dataProvider;
     }

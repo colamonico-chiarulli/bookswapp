@@ -34,7 +34,7 @@
 ?>
 <?php
 return [
-    'name' => 'BookswApp',
+    'name' => 'Bookswapp',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         'cache' => [

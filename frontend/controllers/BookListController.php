@@ -39,15 +39,29 @@ namespace frontend\controllers;
 use Yii;
 use common\models\UserHasClassroom;
 use frontend\models\search\AdoptionBookSearch;
+use frontend\models\search\AdoptionSearch;
 
 class BookListController extends \yii\web\Controller
 {
 
     public function actionIndex()
     {
+        $user = UserHasClassroom::findOne(Yii::$app->user->id);
+        $searchModel = new AdoptionSearch();
+
+        $query = Yii::$app->request->queryParams;
+        $query['AdoptionSearch']['year_adoption'] = $user->attended_year;
+        $query['AdoptionSearch']['classroom_id'] = $user->classroom_id;
+
+        $dataProvider = $searchModel->search($query);
         
-        
-        return $this->render('index');
+        return $this->render(
+            'index',
+            [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]
+        );
     }
 
     /**
