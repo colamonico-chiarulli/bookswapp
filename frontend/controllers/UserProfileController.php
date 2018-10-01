@@ -47,7 +47,7 @@ class UserProfileController extends Controller
 
         if ($user_profile != null)
         {
-            return $this->redirect(['view', 'id' => $user_profile->user_id]);
+            return $this->redirect(['view', 'id' => $user_profile->id]);
         } else {
             return $this->redirect(['create']);
         }
@@ -75,7 +75,7 @@ class UserProfileController extends Controller
     {
         $model = new UserProfile();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -94,8 +94,9 @@ class UserProfileController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        Yii::trace($model->first_name);
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
+            Yii::trace($model->first_name);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

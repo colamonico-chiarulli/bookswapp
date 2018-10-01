@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\widgets\Select2;
+use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UserProfile */
@@ -18,16 +20,39 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'birthdate')->textInput() ?>
+    <?= $form->field($model, 'phone1_user')->textInput() ?>
 
-    <?= $form->field($model, 'gender_id')->textInput() ?>
+    <?= 
+        $form->field($model, 'birthdate')->widget(DatePicker::classname(), [
+            'name' => 'birthdate', 
+            'value' => date('yyyy-mm-d', strtotime('+2 days')),
+            'options' => ['placeholder' => 'Select issue date ...'],
+            'pluginOptions' => [
+                'format' => 'yyyy-mm-dd',
+                'todayHighlight' => true
+            ]
+        ]) 
+    ?>
+
+    <?= 
+        $form->field($model, 'gender_id')->widget(Select2::classname(), [
+            'data' => ['1' => 'Male', '2' => 'Female'],
+            'options' => ['placeholder' => 'Select a state ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ])
+    ?>
+
+    <?= $form->field($model, 'address_user')->textInput() ?>
 
     <?= $form->field($model, 'city_user')->textInput() ?>
+
     <?= $form->field($model, 'district_user')->textInput() ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+    <?= $form->field($model, 'created_at')->textInput()->hiddenInput(['value'=> Yii::$app->user->identity->created_at])->label(false) ?>
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    <?= $form->field($model, 'updated_at')->textInput()->hiddenInput(['value'=> date("Y-m-d H:i")])->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
