@@ -75,6 +75,7 @@ use common\components\NavLTE;
 
             $items[] = ['label' => 'Book List','ico' => 'address-book-o' , 'url' => ['/book-list']];
             $items[] = ['label' => 'User Profile','ico' => 'child' , 'url' => ['/user-profile']];
+            $items[] = ['label' => 'User Classroom', 'ico' => 'child', 'url' => ['/user-has-classroom']];
 
             $menuItems['items'] = $items;
             if (!Yii::$app->user->isGuest) {
