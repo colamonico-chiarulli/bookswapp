@@ -2,7 +2,7 @@
 	use kartik\grid\GridView;
 	use kartik\widgets\Select2;
 
-	$this->title = 'Index';
+	$this->title = 'Book List';
 ?>
 
 <?=
