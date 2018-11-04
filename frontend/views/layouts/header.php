@@ -271,18 +271,18 @@ if (Yii::$app->user->isGuest) {
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                        <span class="hidden-xs"><?= @Yii::$app->user->identity->username ?></span>
+                        <!--img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/-->
+                        <span class="hidden-xs"><?= Yii::$app->user->identity->username ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
-                                 alt="User Image"/>
+                            <!--img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
+                                 alt="User Image"/-->
 
                             <p>
-                                Alexander Pierce - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                <?= Yii::$app->user->identity->username ?>
+                                <!--small>Member since Nov. 2012</small-->
                             </p>
                         </li>
                         <!-- Menu Body -->
@@ -312,9 +312,9 @@ if (Yii::$app->user->isGuest) {
                         </li>
                     </ul>
                 </li>
-<?php
-}
-?>
+                <?php
+                    }
+                ?>
                 <!-- User Account: style can be found in dropdown.less -->
 
             </ul>

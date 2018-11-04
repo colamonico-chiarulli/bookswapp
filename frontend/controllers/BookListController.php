@@ -13,12 +13,12 @@
      * FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
      * details.
      *
-     * You should have received a copy of the GNU Affero General Public License along 
+     * You should have received a copy of the GNU Affero General Public License along
      * with this program; if not, see http://www.gnu.org/licenses or write to the Free
      * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
      * 02110-1301 USA.
      *
-     * You can contact ITE "C. Colamonico" with a mailing address at Via Colamonico, 5 
+     * You can contact ITE "C. Colamonico" with a mailing address at Via Colamonico, 5
      * 70021 - Acquaviva delle Fonti (BA) Italy, or at email address bookswapp@itccolamonico.it.
      *
      * The interactive user interfaces in original and modified versions
@@ -32,7 +32,7 @@
      * "Copyright ITE C. Colamonico - http://www.itccolamonico.it - 2014. All rights reserved".
      ****************************************************************************************/
 ?>
-<?php 
+<?php
 
 namespace frontend\controllers;
 
@@ -40,23 +40,29 @@ use Yii;
 use common\models\UserHasClassroom;
 use frontend\models\search\AdoptionBookSearch;
 use frontend\models\search\AdoptionSearch;
+use common\models\Adoption;
+use common\models\Bookmark;
 
 class BookListController extends \yii\web\Controller
 {
-
-    public function actionIndex()
+    public function actionBookListSell()
     {
-        $user = UserHasClassroom::findOne(Yii::$app->user->id);
+        $user = UserHasClassroom::find()
+            ->where(['user_id' => Yii::$app->user->id])
+            ->orderBy(['attended_year' => SORT_DESC])
+            ->limit(2)
+            ->all();
+
         $searchModel = new AdoptionSearch();
 
         $query = Yii::$app->request->queryParams;
-        $query['AdoptionSearch']['year_adoption'] = $user->attended_year;
-        $query['AdoptionSearch']['classroom_id'] = $user->classroom_id;
+        $query['AdoptionSearch']['year_adoption'] = $user[1]->attended_year;
+        $query['AdoptionSearch']['classroom_id'] = $user[1]->classroom_id;
 
         $dataProvider = $searchModel->search($query);
-        
+
         return $this->render(
-            'index',
+            'booklistsell',
             [
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
@@ -64,31 +70,50 @@ class BookListController extends \yii\web\Controller
         );
     }
 
-    /**
-     * List all books adopted in classrooms attendend by logged user
-     * @return mixed
-     */
-    public function actionBookList()
+    public function actionBookListBuy()
     {
-        $id = Yii::$app->user->identity->id;
-        //retrieve all user's classroom
-        $classrooms = UserHasClassroom::findAll(['user_id' => $id]);
+        $user = UserHasClassroom::find()
+            ->where(['user_id' => Yii::$app->user->id])
+            ->orderBy(['attended_year' => SORT_DESC])
+            ->limit(2)
+            ->all();
 
-        //Create a dataProvider for each classroom attended by user
-        $i=0;
-        $searchModels = null;
-        $dataProviders = null;
-        foreach ($classrooms as $classroom) {
-            
-            $searchModels[$i] = new AdoptionBookSearch();
-            $dataProviders[$i] = $searchModels[$i]->searchYearClassroom(Yii::$app->request->queryParams, $classroom->attended_year, $classroom->classroom_id);
-            $i++;
-        }
-        return $this->render('userBookList', [
-                'classrooms' => $classrooms,
-                'searchModels' => $searchModels,
-                'dataProviders' => $dataProviders,
+        $searchModel = new AdoptionSearch();
+
+        $query = Yii::$app->request->queryParams;
+        $query['AdoptionSearch']['year_adoption'] = $user[0]->attended_year;
+        $query['AdoptionSearch']['classroom_id'] = $user[0]->classroom_id;
+
+        $dataProvider = $searchModel->search($query);
+
+        return $this->render(
+            'booklistbuy',
+            [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]
+        );
+    }
+
+    public function actionFavouriteAdd($id)
+    {
+        $adoption = Adoption::findOne($id);
+        $bookmark = new Bookmark();
+        $bookmark->user_id = Yii::$app->user->identity->id;
+        $bookmark->book_id = $adoption->book->id;
+        $bookmark->save(false);
+        $this->redirect('/');
+    }
+
+    public function actionFavouriteRm($id)
+    {
+        $adoption = Adoption::findOne($id);
+        $bookmark = Bookmark::findOne([
+            'user_id' => Yii::$app->user->identity->id,
+            'book_id' => $adoption->book->id,
         ]);
+        $bookmark->delete();
+        $this->redirect('/');
     }
 
 }

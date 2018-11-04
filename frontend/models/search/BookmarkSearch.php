@@ -33,57 +33,75 @@
      ****************************************************************************************/
 ?>
 <?php
-use yii\bootstrap\Nav;
-use common\components\NavLTE;
 
-?>
-<aside class="main-sidebar">
+namespace frontend\models\search;
 
-    <section class="sidebar">
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use common\models\Bookmark;
+use common\models\Book;
+//use yii\data\Pagination;
 
-        <!-- Sidebar user panel -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                <img src="/favicon.png" class="img-circle"/>
-            </div>
-            <div class="pull-left info">
-                <p>Bookswapp</p>
+/**
+ * AdoptionBookSearch represents the model behind the search form about `common\models\Adoption`.
+ */
+class BookmarkSearch extends Bookmark {
 
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-        </div>
+    public $title;
 
-        <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                <span class="input-group-btn">
-                    <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </div>
-        </form>
+    /**
+     * @inheritdoc
+     */
+    public function rules() {
+        return [
+            [['user_id', 'book_id', 'reserved'], 'integer'],
+            [['date'], 'safe'],
+            [['title'], 'safe'], //altri filtri
+        ];
+    }
 
-        <?php
-            $items[] = [
-                'label' => 'Bookswapp',
-                'ico' => 'book',
-                'items' => [
-                    ['label' => 'Elenco Libri', 'url' => ['book-list/user-book']],
-                ]
-            ];
+    /**
+     * @inheritdoc
+     */
+    public function scenarios() {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
 
-            $items[] = ['label' => 'Book List Vendite','ico' => 'address-book-o' , 'url' => ['/book-list/book-list-sell']];
-            $items[] = ['label' => 'Book List Acquisti','ico' => 'address-book-o' , 'url' => ['/book-list/book-list-buy']];
-            $items[] = ['label' => 'Preferiti', 'ico' => 'star', 'url' => ['/bookmark']];
-            $items[] = ['label' => 'User Profile','ico' => 'child' , 'url' => ['/user-profile']];
-            $items[] = ['label' => 'User Classroom', 'ico' => 'child', 'url' => ['/user-has-classroom']];
+    public function search($params)
+    {
+        $query = Bookmark::find();
 
-            $menuItems['items'] = $items;
-            if (!Yii::$app->user->isGuest) {
-                echo NavLTE::widget($menuItems);
-            }
-        ?>
-    </section>
+        // add conditions that should always apply here
 
-</aside>
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        $titles = [];
+
+        foreach (Book::find()->select('id')->andFilterWhere(['like', 'title', $this->title])->asArray()->all() as $val)
+        {
+            $titles[] = $val['id'];
+        }
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'user_id' => $this->user_id,
+            'reserved' => $this->reserved,
+        ]);
+
+        $query->andWhere(['book_id' => $titles,]);
+
+        return $dataProvider;
+    }
+
+}
