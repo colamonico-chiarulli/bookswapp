@@ -5,7 +5,7 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=bookswapp',
+            'dsn' => 'mysql:host=localhost;dbname=bookswap_dev',
             'username' => 'root',
             'password' => 'root',
             'charset' => 'utf8',

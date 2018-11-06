@@ -1,5 +1,6 @@
 <?php
 	use common\models\Bookmark;
+	use common\models\Swap;
 	use kartik\grid\GridView;
 	use kartik\widgets\Select2;
     use yii\helpers\Html;
@@ -83,17 +84,28 @@
 							'user_id' => Yii::$app->user->identity->id,
 							'book_id' => $model->book->id,
 						 ]);
+
 					 	if ($bookmark == null)
- 						{
- 							return Html::a( '<span class="glyphicon glyphicon-plus"></span>', '/bookmark/favourite-add?id='.$model->book->id, ['title' => 'Aggiungi ai preferiti']);
- 						} else {
- 							return Html::a( '<span class="glyphicon glyphicon-minus"></span>', '/bookmark/favourite-rm?id='.$model->book->id, ['title' => 'Rimuovi dai preferiti']);
- 						}
+						{
+							return Html::a( '<span class="glyphicon glyphicon-plus"></span>', '/bookmark/favourite-add?id='.$model->book->id, ['title' => 'Aggiungi ai preferiti']);
+						} else {
+							return Html::a( '<span class="glyphicon glyphicon-minus"></span>', '/bookmark/favourite-rm?id='.$model->book->id, ['title' => 'Rimuovi dai preferiti']);
+						}
                     },
 
                     'sell' => function ($url, $model)
                     {
-                        return Html::a( '<span class="glyphicon glyphicon-usd"></span>', $url, ['title' => 'Vendi'] );
+						$swap = Swap::findOne([
+							'seller_user_id' => Yii::$app->user->identity->id,
+							'book_id' => $model->book->id,
+						]);
+
+						if($swap == null)
+						{
+							return Html::a( '<span class="glyphicon glyphicon-usd"></span>', $url, ['title' => 'Vendi'] );
+						} else {
+							return Html::a( '<span class="glyphicon glyphicon-option-horizontal"></span>', $url, ['title' => 'In Vendita'] );
+						}
                     },
                 ],
             ]

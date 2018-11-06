@@ -29,7 +29,7 @@ class BookmarkController extends \yii\web\Controller
         $bookmark->user_id = Yii::$app->user->identity->id;
         $bookmark->book_id = $id;
         $bookmark->save(false);
-        $this->redirect('/');
+        $this->redirect('index');
     }
 
     public function actionFavouriteRm($id)
@@ -39,7 +39,7 @@ class BookmarkController extends \yii\web\Controller
             'book_id' => $id,
         ]);
         $bookmark->delete();
-        $this->redirect('/');
+        $this->redirect('index');
     }
 
 }

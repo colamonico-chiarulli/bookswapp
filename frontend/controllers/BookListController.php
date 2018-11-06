@@ -40,6 +40,7 @@ use Yii;
 use common\models\UserHasClassroom;
 use frontend\models\search\AdoptionBookSearch;
 use frontend\models\search\AdoptionSearch;
+use frontend\models\search\SwapSearch;
 use common\models\Adoption;
 use common\models\Swap;
 
@@ -113,5 +114,19 @@ class BookListController extends \yii\web\Controller
                 'adoption' => $adoption,
                 'swap' => $swap,
             ]);
+    }
+
+    public function actionBuy($id)
+    {
+        $searchModel = new SwapSearch();
+
+        $query = Yii::$app->request->queryParams;
+        $query['SwapSearch']['book_id'] = Adoption::findOne($id)->book->id;
+
+        $dataProvider = $searchModel->search($query);
+
+        return $this->render('buy', [
+            'dataProvider' => $dataProvider
+        ]);
     }
 }
