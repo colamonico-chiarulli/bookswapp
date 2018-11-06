@@ -41,7 +41,7 @@ use common\models\UserHasClassroom;
 use frontend\models\search\AdoptionBookSearch;
 use frontend\models\search\AdoptionSearch;
 use common\models\Adoption;
-use common\models\Bookmark;
+use common\models\Swap;
 
 class BookListController extends \yii\web\Controller
 {
@@ -95,25 +95,23 @@ class BookListController extends \yii\web\Controller
         );
     }
 
-    public function actionFavouriteAdd($id)
+    // book id
+    public function actionSell($id)
     {
+        $swap = new Swap();
         $adoption = Adoption::findOne($id);
-        $bookmark = new Bookmark();
-        $bookmark->user_id = Yii::$app->user->identity->id;
-        $bookmark->book_id = $adoption->book->id;
-        $bookmark->save(false);
-        $this->redirect('/');
-    }
+        if ($swap->load(Yii::$app->request->post())) {
 
-    public function actionFavouriteRm($id)
-    {
-        $adoption = Adoption::findOne($id);
-        $bookmark = Bookmark::findOne([
-            'user_id' => Yii::$app->user->identity->id,
-            'book_id' => $adoption->book->id,
-        ]);
-        $bookmark->delete();
-        $this->redirect('/');
-    }
+            $swap->seller_user_id = Yii::$app->user->identity->id;
+            $swap->book_id = $adoption->book->id;
+            $swap->save(false);
+            return $this->redirect('book-list-sell');
+        }
 
+        return $this->render('sell',
+            [
+                'adoption' => $adoption,
+                'swap' => $swap,
+            ]);
+    }
 }

@@ -4,7 +4,7 @@
 	use kartik\widgets\Select2;
     use yii\helpers\Html;
 
-	$this->title = 'Book List';
+	$this->title = 'Book List Sell';
     $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -83,17 +83,12 @@
 							'user_id' => Yii::$app->user->identity->id,
 							'book_id' => $model->book->id,
 						 ]);
-						if ($bookmark == null)
-						{
-							return Html::a( '<span class="glyphicon glyphicon-plus"></span>', 'favourite-add?id='.$model->id, ['title' => 'Aggiungi ai preferiti']);
-						} else {
-							return Html::a( '<span class="glyphicon glyphicon-minus"></span>', 'favourite-rm?id='.$model->id, ['title' => 'Rimuovi dai preferiti']);
-						}
-                    },
-
-                    'buy' => function ($url, $model)
-                    {
-                        return Html::a( '<span class="glyphicon glyphicon-shopping-cart"></span>', $url, ['title' => 'Compra']);
+					 	if ($bookmark == null)
+ 						{
+ 							return Html::a( '<span class="glyphicon glyphicon-plus"></span>', '/bookmark/favourite-add?id='.$model->book->id, ['title' => 'Aggiungi ai preferiti']);
+ 						} else {
+ 							return Html::a( '<span class="glyphicon glyphicon-minus"></span>', '/bookmark/favourite-rm?id='.$model->book->id, ['title' => 'Rimuovi dai preferiti']);
+ 						}
                     },
 
                     'sell' => function ($url, $model)

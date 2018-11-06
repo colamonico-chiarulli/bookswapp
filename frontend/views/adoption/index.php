@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]),
             ],
-            //'book_id',
+            'book.title',
             //'owned',
             //'to_buy',
             //'advised',
