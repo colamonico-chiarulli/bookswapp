@@ -121,7 +121,8 @@ class BookListController extends \yii\web\Controller
         $searchModel = new SwapSearch();
 
         $query = Yii::$app->request->queryParams;
-        $query['SwapSearch']['book_id'] = Adoption::findOne($id)->book->id;
+
+        $query['SwapSearch']['book_id'] = $id;
 
         $dataProvider = $searchModel->search($query);
 

@@ -40,17 +40,8 @@
 
                     'sell' => function ($url, $model)
                     {
-						$swap = Swap::findOne([
-							'seller_user_id' => Yii::$app->user->identity->id,
-							'book_id' => $model->book->id,
-						]);
-
-						if($swap == null)
-						{
-							return Html::a( '<span class="glyphicon glyphicon-usd"></span>', $url, ['title' => 'Vendi'] );
-						} else {
-							return Html::a( '<span class="glyphicon glyphicon-option-horizontal"></span>', $url, ['title' => 'In Vendita'] );
-						}
+						//modificare l'url
+						return Html::a( '<span class="glyphicon glyphicon-credit-card"></span>', $url, ['title' => 'Compra'] );
                     },
                 ],
             ]
