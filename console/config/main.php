@@ -13,6 +13,7 @@ return [
     'controllerNamespace' => 'console\controllers',
     'modules' => [
         'gii' => 'yii\gii\Module',
+        'rbac' => 'dektrium\rbac\RbacConsoleModule',
     ],
     'components' => [
         'log' => [
@@ -22,6 +23,11 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+    ],
+    'controllerMap' => [
+        'migration' => [
+            'class' => 'bizley\migration\controllers\MigrationController',
         ],
     ],
     'params' => $params,

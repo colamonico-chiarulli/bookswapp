@@ -45,6 +45,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'school_verificated_user',
             'created_at',
             'updated_at',
+            [
+                'attribute' => 'user.class_old',
+                'value' => function ($model)
+                {
+                    return $model->user->classOld->class . ' ' . $model->user->classOld->section_class;
+                }
+            ],
+            'user.year_old',
+            [
+                'attribute' => 'user.class_new',
+                'value' => function ($model)
+                {
+                    return $model->user->classNew->class . ' ' . $model->user->classNew->section_class;
+                }
+            ],
+            'user.year_new',
         ],
     ]) ?>
 

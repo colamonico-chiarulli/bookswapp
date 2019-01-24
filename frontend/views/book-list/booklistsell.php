@@ -104,7 +104,7 @@
 						{
 							return Html::a( '<span class="glyphicon glyphicon-usd"></span>', $url, ['title' => 'Vendi'] );
 						} else {
-							return Html::a( '<span class="glyphicon glyphicon-option-horizontal"></span>', $url, ['title' => 'In Vendita'] );
+							return Html::a( '<span class="glyphicon glyphicon-option-horizontal"></span>', '/book-list/selling?id='.$model->id, ['title' => 'In Vendita'] );
 						}
                     },
                 ],

@@ -37,7 +37,7 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\UserHasClassroom;
+use common\models\User;
 use frontend\models\search\AdoptionBookSearch;
 use frontend\models\search\AdoptionSearch;
 use frontend\models\search\SwapSearch;
@@ -48,17 +48,12 @@ class BookListController extends \yii\web\Controller
 {
     public function actionBookListSell()
     {
-        $user = UserHasClassroom::find()
-            ->where(['user_id' => Yii::$app->user->id])
-            ->orderBy(['attended_year' => SORT_DESC])
-            ->limit(2)
-            ->all();
-
         $searchModel = new AdoptionSearch();
 
         $query = Yii::$app->request->queryParams;
-        $query['AdoptionSearch']['year_adoption'] = $user[1]->attended_year;
-        $query['AdoptionSearch']['classroom_id'] = $user[1]->classroom_id;
+
+        $query['AdoptionSearch']['year_adoption'] = User::find(['id' => Yii::$app->user->id])->all()[0]->year_old;
+        $query['AdoptionSearch']['classroom_id'] = User::find(['id' => Yii::$app->user->id])->all()[0]->class_old;
 
         $dataProvider = $searchModel->search($query);
 
@@ -73,17 +68,12 @@ class BookListController extends \yii\web\Controller
 
     public function actionBookListBuy()
     {
-        $user = UserHasClassroom::find()
-            ->where(['user_id' => Yii::$app->user->id])
-            ->orderBy(['attended_year' => SORT_DESC])
-            ->limit(2)
-            ->all();
-
         $searchModel = new AdoptionSearch();
 
         $query = Yii::$app->request->queryParams;
-        $query['AdoptionSearch']['year_adoption'] = $user[0]->attended_year;
-        $query['AdoptionSearch']['classroom_id'] = $user[0]->classroom_id;
+
+        $query['AdoptionSearch']['year_adoption'] = User::find(['id' => Yii::$app->user->id])->all()[0]->year_new;
+        $query['AdoptionSearch']['classroom_id'] = User::find(['id' => Yii::$app->user->id])->all()[0]->class_new;
 
         $dataProvider = $searchModel->search($query);
 
@@ -110,6 +100,18 @@ class BookListController extends \yii\web\Controller
         }
 
         return $this->render('sell',
+            [
+                'adoption' => $adoption,
+                'swap' => $swap,
+            ]);
+    }
+
+    public function actionSelling($id)
+    {
+        $adoption = Adoption::findOne($id);
+        $swap = Swap::findOne(['seller_user_id' => Yii::$app->user->id, 'book_id' => $adoption->book_id]);
+
+        return $this->render('selling',
             [
                 'adoption' => $adoption,
                 'swap' => $swap,

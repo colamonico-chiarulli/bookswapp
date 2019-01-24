@@ -94,14 +94,14 @@ class UserProfileController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        Yii::trace($model->first_name);
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
-            Yii::trace($model->first_name);
+        $user = $model->user;
+        if ($model->load(Yii::$app->request->post()) && $model->save(false) && $user->load(Yii::$app->request->post()) && $user->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'user' => $user,
         ]);
     }
 

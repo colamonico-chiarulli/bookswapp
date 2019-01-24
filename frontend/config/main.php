@@ -13,12 +13,12 @@
      * FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
      * details.
      *
-     * You should have received a copy of the GNU Affero General Public License along 
+     * You should have received a copy of the GNU Affero General Public License along
      * with this program; if not, see http://www.gnu.org/licenses or write to the Free
      * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
      * 02110-1301 USA.
      *
-     * You can contact ITE "C. Colamonico" with a mailing address at Via Colamonico, 5 
+     * You can contact ITE "C. Colamonico" with a mailing address at Via Colamonico, 5
      * 70021 - Acquaviva delle Fonti (BA) Italy, or at email address bookswapp@itccolamonico.it.
      *
      * The interactive user interfaces in original and modified versions
@@ -46,10 +46,10 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
-        'user' => [
+        /*'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
-        ],
+        ],*/
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
