@@ -15,8 +15,15 @@
         //'filterModel' => $searchModel,
         'columns' => [
 			'sellerUser.username',
-			'sellerUser.profile.city_user',
-			'sellerUser.profile.district_user',
+			//'sellerUser.profile.city_user',
+			//'sellerUser.profile.district_user',
+			[
+				'label' => 'Distanza',
+				'value' => function ($model)
+				{
+					return $model->getDistance();
+				}
+			],
 			'book.title',
 			'book.isbn',
 			[

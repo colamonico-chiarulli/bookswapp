@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\UserProfile;
 
 /**
  * This is the model class for table "{{%swap}}".
@@ -101,5 +102,32 @@ class Swap extends \yii\db\ActiveRecord
     public function getBook()
     {
         return $this->hasOne(Book::className(), ['id' => 'book_id']);
+    }
+
+    public function getDistance() {
+        $unit = 'K';
+        $from = UserProfile::findOne(['user_id' => Yii::$app->user->id]);
+        $to = UserProfile::findOne(['user_id' => $this->seller_user_id]);
+
+        //Get latitude and longitude from geo data
+        $latitudeFrom = $from->geo_lat_user;
+        $longitudeFrom = $from->geo_lng_user;
+        $latitudeTo = $to->geo_lat_user;
+        $longitudeTo = $to->geo_lng_user;
+
+        //Calculate distance from latitude and longitude
+        $theta = $longitudeFrom - $longitudeTo;
+        $dist = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo)) +  cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $unit = strtoupper($unit);
+        if ($unit == "K") {
+            return ($miles * 1.609344).' km';
+        } else if ($unit == "N") {
+            return ($miles * 0.8684).' nm';
+        } else {
+            return $miles.' mi';
+        }
     }
 }

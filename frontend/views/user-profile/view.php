@@ -49,7 +49,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'user.class_old',
                 'value' => function ($model)
                 {
-                    return $model->user->classOld->class . ' ' . $model->user->classOld->section_class;
+                    $class = $model->user->classOld;
+                    if ($class != null)
+                    {
+                        return $class->num_class . ' ' . $class->section_class;
+                    } else {
+                        return 'Valore assente';
+                    }
                 }
             ],
             'user.year_old',
@@ -57,7 +63,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'user.class_new',
                 'value' => function ($model)
                 {
-                    return $model->user->classNew->class . ' ' . $model->user->classNew->section_class;
+                    $class = $model->user->classNew;
+                    if ($class != null)
+                    {
+                        return $class->num_class . ' ' . $class->section_class;
+                    } else {
+                        return 'Valore assente';
+                    }
                 }
             ],
             'user.year_new',

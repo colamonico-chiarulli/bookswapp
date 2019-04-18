@@ -53,12 +53,16 @@ use common\models\Classroom;
 
     <?= $form->field($model, 'district_user')->textInput() ?>
 
-    <?= $form->field($model, 'created_at')->textInput()->hiddenInput(['value'=> Yii::$app->user->identity->created_at])->label(false) ?>
+    <?= $form->field($model, 'geo_lat_user')->textInput() ?>
+
+    <?= $form->field($model, 'geo_lng_user')->textInput() ?>
+
+    <?= $form->field($model, 'created_at')->textInput()->hiddenInput(['value'=> date("Y-m-d H:i", Yii::$app->user->identity->created_at)])->label(false) ?>
 
     <?= $form->field($model, 'updated_at')->textInput()->hiddenInput(['value'=> date("Y-m-d H:i")])->label(false) ?>
 
     <?php
-        $data = ArrayHelper::map(Classroom::find()->all(), 'id', 'class', 'section_class');
+        $data = ArrayHelper::map(Classroom::find()->all(), 'id', 'num_class', 'section_class');
         echo $form->field($user, 'class_old')->widget(Select2::classname(), [
             'data' => $data,
             'options' => ['placeholder' => 'Select a class...'],
@@ -86,3 +90,27 @@ use common\models\Classroom;
     <?php ActiveForm::end(); ?>
 
 </div>
+<?php
+$js = <<<JS
+    $('#userprofile-address_user').change(function ()
+    {
+        var addr = $(this).val()+','+$('#userprofile-city_user').val();
+        $.get(' https://nominatim.openstreetmap.org/search?q='+addr+'&format=json', function (data)
+        {
+            $('#userprofile-geo_lat_user').val(data[0].lat);
+            $('#userprofile-geo_lng_user').val(data[0].lon);
+        });
+    });
+
+    $('#userprofile-city_user').change(function ()
+    {
+        var addr = $('#userprofile-address_user').val()+','+$(this).val();
+        $.get(' https://nominatim.openstreetmap.org/search?q='+addr+'&format=json', function (data)
+        {
+            $('#userprofile-geo_lat_user').val(data[0].lat);
+            $('#userprofile-geo_lng_user').val(data[0].lon);
+        });
+    });
+JS;
+$this->registerJs($js);
+?>

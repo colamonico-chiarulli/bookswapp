@@ -71,7 +71,7 @@
                     ],
                 ]),
         	],
-        	'classroom.class',
+        	'classroom.num_class',
         	'classroom.section_class',
             [
                 'class' => 'kartik\grid\ActionColumn',
