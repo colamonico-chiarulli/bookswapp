@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'school.name_school',
             'year_adoption',
-            'classroom.class',
+            'classroom.num_class',
             'classroom.section_class',
             'book.title',
             'book.subtitle',

@@ -26,9 +26,10 @@
 			],
 			'book.title',
 			'book.isbn',
+			'condition.condition',
 			[
                 'class' => 'kartik\grid\ActionColumn',
-                'template' => '{favourite} {sell} ',
+                'template' => '{favourite} {buy} ',
                 'buttons' => [
                     'favourite' => function ($url, $model)
                     {
@@ -45,7 +46,7 @@
 						}
                     },
 
-                    'sell' => function ($url, $model)
+                    'buy' => function ($url, $model)
                     {
 						//modificare l'url
 						return Html::a( '<span class="glyphicon glyphicon-credit-card"></span>', $url, ['title' => 'Compra'] );

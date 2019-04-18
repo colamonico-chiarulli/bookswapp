@@ -118,7 +118,7 @@ class BookListController extends \yii\web\Controller
             ]);
     }
 
-    public function actionBuy($id)
+    public function actionBuylist($id)
     {
         $searchModel = new SwapSearch();
 
@@ -128,8 +128,16 @@ class BookListController extends \yii\web\Controller
 
         $dataProvider = $searchModel->search($query);
 
-        return $this->render('buy', [
+        return $this->render('buylist', [
             'dataProvider' => $dataProvider
         ]);
+    }
+
+    public function actionBuy($seller_user_id, $book_id)
+    {
+        $swap = Swap::findOne(['seller_user_id' => $seller_user_id, 'book_id' => $book_id]);
+        $swap->buyer_user_id = yii::$app->user->identity->id;
+        $swap->save();
+        return $this->redirect('book-list-buy');
     }
 }

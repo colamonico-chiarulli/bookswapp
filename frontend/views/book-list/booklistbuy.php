@@ -93,7 +93,7 @@
 
                     'buy' => function ($url, $model)
                     {
-                        return Html::a( '<span class="glyphicon glyphicon-shopping-cart"></span>','/book-list/buy?id='.$model->book->id, ['title' => 'Compra']);
+                        return Html::a( '<span class="glyphicon glyphicon-shopping-cart"></span>','/book-list/buylist?id='.$model->book->id, ['title' => 'Compra']);
                     },
                 ],
             ]

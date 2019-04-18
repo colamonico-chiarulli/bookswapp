@@ -87,7 +87,11 @@ class SwapSearch extends Swap {
             'book_id' => $this->book_id,
             'condition_id' => $this->condition_id,
         ]);
-        
+
+        $query->andWhere([
+            'buyer_user_id' => null
+        ]);
+
         return $dataProvider;
     }
 
