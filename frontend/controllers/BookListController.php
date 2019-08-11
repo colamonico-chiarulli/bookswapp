@@ -137,7 +137,9 @@ class BookListController extends \yii\web\Controller
     {
         $swap = Swap::findOne(['seller_user_id' => $seller_user_id, 'book_id' => $book_id]);
         $swap->buyer_user_id = yii::$app->user->identity->id;
-        $swap->save();
+        $swap->sold = false;
+        $swap->price_swap = $swap->book->price;
+        $swap->save(false);
         return $this->redirect('book-list-buy');
     }
 }

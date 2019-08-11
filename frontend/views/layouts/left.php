@@ -75,6 +75,7 @@ use common\components\NavLTE;
 
             $items[] = ['label' => 'Book List Vendite','ico' => 'address-book-o' , 'url' => ['/book-list/book-list-sell']];
             $items[] = ['label' => 'Book List Acquisti','ico' => 'address-book-o' , 'url' => ['/book-list/book-list-buy']];
+            $items[] = ['label' => 'Scambi','ico' => 'briefcase' , 'url' => ['/swap']];
             $items[] = ['label' => 'Preferiti', 'ico' => 'star', 'url' => ['/bookmark']];
             $items[] = ['label' => 'User Profile','ico' => 'child' , 'url' => ['/user-profile']];
 
